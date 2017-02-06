@@ -10,9 +10,10 @@
     private $surname;
     private $credits;
     private $hashedPassword;
+    static public $connection;
 
     public function __construct(){
-        $this->$id = -1;
+        $this->id = -1;
         $this->address = '';
         $this->name = '';
         $this->surname = '';
@@ -73,10 +74,11 @@
     }
     public function setHashedPassword($hashedPassword)
     {
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $this->hashedPassword = $passwordhashed;
+        $hashedPassword = password_hash($hashedPassword, PASSWORD_BCRYPT);
+        $this->hashedPassword = $passwordHashed;
         return true;
     }
+
 
 }
 
