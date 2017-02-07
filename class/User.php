@@ -71,8 +71,7 @@
     public function setHashedPassword($password)
     {
         $newHashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $this->hashedPassword = $newHashedPassword;
-        return true;
+        $this->hashedassword = $newHashedPassword;
     }
     public function loadFromDB($idUser){
       $sql = "SELECT * FROM user WHERE id = $idUser";
@@ -94,19 +93,15 @@
       }
     }
     //statyczna do wszystkich
-    public function loadFAllromDB($idUser){
-      $sql = "SELECT * FROM user WHERE id = $idUser";
+    static public function loadAllfromDB(){
+      $sql = "SELECT * FROM user";
+
       if ($result = Self::$connection->query($sql)){
-        $row = $result->fetch(PDO::FETCH_ASSOC);
-
-        $this->id = $row['id'];
-        $this->name = $row['name'];
-        $this->surname = $row['surname'];
-        $this->credits = $row['credits'];
-        $this->newHashedPassword = $row['pass'];
-        $this->addressId = $row['address_id'];
-
-        //not true because usage on view
+        $row = [];
+        $n = 0;
+        foreach ($result as $key => $value) {
+          $row[$key] = $value;
+        }
         return $row;
       }
       else{

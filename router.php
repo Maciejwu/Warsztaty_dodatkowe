@@ -7,6 +7,7 @@ $request = '';
 $arrayRequest = [];
 $requestClass = '';
 $requestParam = '';
+$requestParam = null;
 
 //Parsowanie zapytania
 $request = $_SERVER['REQUEST_URI'];
@@ -35,13 +36,17 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
        //wyświetl jednego usera
        $oUser = new User();
        $userData = $oUser->loadFromDB($requestParam);
-       var_dump($oUser);
+     }
+     if($requestParam == null){
+       $allUsers = User::loadAllfromDB();
+       var_dump($allUsers);
      }
      else{
        //wyświetl wszystkich
      }
    }
 }
+
 
 
 
