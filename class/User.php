@@ -5,16 +5,16 @@
   class User{
 
     private $id;
-    private $address;
+    private $addressId;
     private $name;
     private $surname;
     private $credits;
-    private $hashedPassword;
+    private $password;
     static public $connection;
 
     public function __construct(){
         $this->id = -1;
-        $this->address = '';
+        $this->addressId = null;
         $this->name = '';
         $this->surname = '';
         $this->credits = null;
@@ -26,13 +26,12 @@
     }
     public function getAddress()
     {
-      return $this->address;
+      return $this->addressId;
     }
-    public function setAddress($address)
+    public function setAddress($addressId)
     {
-      if(is_string($address)){
-        $this->address = $address;
-        return true;
+      if(is_int($addressId)){
+        $this->addressId = $addressId;
       }
     }
     public function getName()
@@ -43,7 +42,6 @@
     {
       if(is_string($name)){
         $this->name = $name;
-        return true;
       }
     }
     public function getSurname()
@@ -54,7 +52,6 @@
     {
       if(is_string($surname)){
         $this->surname = $surname;
-        return true;
       }
     }
     public function getCredits()
@@ -65,21 +62,37 @@
     {
       if(is_string($credits)){
         $this->credits = $credits;
-        return true;
       }
     }
     public function getHashedPassword()
     {
-      return $this->hashedPassword;
+      return $this->password;
     }
-    public function setHashedPassword($hashedPassword)
+    public function setHashedPassword($password)
     {
-        $hashedPassword = password_hash($hashedPassword, PASSWORD_BCRYPT);
-        $this->hashedPassword = $passwordHashed;
+        $newHashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        $this->hashedPassword = $newHashedPassword;
         return true;
     }
+    public function loadFromDB($idUser){
+      $sql = "SELECT * FROM users WHERE id = $idUser";
+      if ($result = Self::$connection->query($sql)){
+        $row = $result->fetch_assoc();
 
+        $this->id = $row['id'];
+        $this->name = $row['name'];
+        $this->surname = $row['surname'];
+        $this->credits = $row['credits'];
+        $this->newHashedPassword = $row['pass'];
+        $this->addressId = $row['address_id'];
 
+        //not true because usage on view
+        return $row;
+      }
+      else{
+        return false;
+      }
+    }
 }
 
 
