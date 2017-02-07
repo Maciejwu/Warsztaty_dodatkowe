@@ -93,6 +93,26 @@
         return false;
       }
     }
+    //statyczna do wszystkich
+    public function loadFAllromDB($idUser){
+      $sql = "SELECT * FROM user WHERE id = $idUser";
+      if ($result = Self::$connection->query($sql)){
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+
+        $this->id = $row['id'];
+        $this->name = $row['name'];
+        $this->surname = $row['surname'];
+        $this->credits = $row['credits'];
+        $this->newHashedPassword = $row['pass'];
+        $this->addressId = $row['address_id'];
+
+        //not true because usage on view
+        return $row;
+      }
+      else{
+        return false;
+      }
+    }
 }
 
 

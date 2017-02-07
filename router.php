@@ -6,6 +6,7 @@ require 'config/connection.php';
 $request = '';
 $arrayRequest = [];
 $requestClass = '';
+$requestParam = '';
 
 //Parsowanie zapytania
 $request = $_SERVER['REQUEST_URI'];
@@ -18,21 +19,27 @@ else {
   die();
 }
 
-
-
-//var_dump($requestClass);
-// $arrayRequest[0] = router.php
-//$arrayRequest[1] = user
-
+if(isset($arrayRequest[3])){
+  //zamiana stringa na inta
+  $requestParam = intval($arrayRequest[3]);
+}
+else{
+  echo 'nie podałeś parametru';
+}
 
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
    if($requestClass == 'user'){
-      $oUser = new User();
-      $userData = $oUser->loadFromDB(1);
-      var_dump($userData);
-   }
-   else{
 
+     //TODO poszukać lepszego rozwiązania
+     if($requestParam > 0){
+       //wyświetl jednego usera
+       $oUser = new User();
+       $userData = $oUser->loadFromDB($requestParam);
+       var_dump($oUser);
+     }
+     else{
+       //wyświetl wszystkich
+     }
    }
 }
 
