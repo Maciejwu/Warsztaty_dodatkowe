@@ -75,9 +75,9 @@
         return true;
     }
     public function loadFromDB($idUser){
-      $sql = "SELECT * FROM users WHERE id = $idUser";
+      $sql = "SELECT * FROM user WHERE id = $idUser";
       if ($result = Self::$connection->query($sql)){
-        $row = $result->fetch_assoc();
+        $row = $result->fetch(PDO::FETCH_ASSOC);
 
         $this->id = $row['id'];
         $this->name = $row['name'];

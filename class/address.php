@@ -26,7 +26,6 @@
     {
       if(is_string($city)){
         $this->city = $city;
-        return true;
       }
     }
     public function getPostcode()
@@ -37,7 +36,6 @@
     {
       if(is_string($postcode)){
         $this->postcode = $postcode;
-        return true;
       }
     }
     public function getStreet()
@@ -48,7 +46,6 @@
     {
       if(is_string($street)){
         $this->street = $street;
-        return true;
       }
     }
     public function getHomeNumber()
@@ -59,7 +56,6 @@
     {
       if(is_string($homeNumber)){
         $this->homeNumber = $homeNumber;
-        return true;
       }
     }
 
